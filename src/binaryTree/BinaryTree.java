@@ -1,5 +1,7 @@
 package binaryTree;
 
+import listeRecursive.RecursiveList;
+
 public class BinaryTree<E> {
 	
 	private Node<E> Noeud;
@@ -10,11 +12,7 @@ public class BinaryTree<E> {
 		private BinaryTree<E> left;
 		private BinaryTree<E> right;
 		
-		public Node(){
-			this.value = null;
-			this.left = new BinaryTree<>();
-			this.right = new BinaryTree<>();
-		}
+		
 		public Node(E value) {
 			this.value = value;
 			this.left = new BinaryTree<>();
@@ -30,7 +28,7 @@ public class BinaryTree<E> {
 	
 	public BinaryTree() {
 		
-		this.Noeud = new Node();
+		this.Noeud = null;
 	}
 	
 	public BinaryTree(E value) {
@@ -97,6 +95,58 @@ public class BinaryTree<E> {
 		
 	}
 	
+	public String affichagePreffixe() {
+		
+		if(!this.estVide()) {
+			return this.root() + this.left().affichagePreffixe() + this.right().affichagePreffixe();
+		}
+		
+		return "";
+	}
 	
+	public String affichageInffixe() {
+		
+		if(!this.estVide()) {
+			return this.left().affichageInffixe() + this.root() + this.right().affichageInffixe();
+		}
+		
+		return "";
+	}
+	public String affichageSuffixe() {
+		
+		if(!this.estVide()) {
+			return this.left().affichageSuffixe() + this.right().affichageSuffixe() + this.root() ;
+		}
+		
+		return "";
+	}
+	
+	public int numberOfNode() {
+		
+		if(this.estVide()) {
+			
+			return 0;
+		}
+		return 1 + this.left().numberOfNode() + this.right().numberOfNode();
+	}
+	
+	public int hight() {
+		
+		if(this.estVide()) {
+			return 0;
+		}
+		return 1 + Math.max(this.left().hight(), this.right().hight());
+	}
+	
+	public boolean estBinairepur() {
+		
+		if(this.estVide()) {
+			return true;
+		}
+		return this.right().estBinairepur() && this.left().estBinairepur();
+	}
+	
+	//La liste des feuilles
+	//public RecursiveList<E> feuillage(){}
 
 }
