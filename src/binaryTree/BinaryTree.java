@@ -79,9 +79,21 @@ public class BinaryTree<E> {
 		this.Noeud.left = other.Noeud.left;
 		this.Noeud.right = other.Noeud.right;
 	}
+	
+	public boolean estUneFeuille() {
+		return this.left().estVide() && this.right().estVide();
+	}
 	public String toString() {
 		
-		return null;
+		if (this.estVide()) {
+			return "";
+		}
+		
+		if(this.estUneFeuille()) {
+			return this.root().toString();
+		}
+		
+		return this.root() + "("+this.left() + ","+ this.right() + ")";
 		
 	}
 	
