@@ -141,12 +141,28 @@ public class BinaryTree<E> {
 	public boolean estBinairepur() {
 		
 		if(this.estVide()) {
+			return false;
+		}
+		if(this.estUneFeuille()) {
 			return true;
 		}
 		return this.right().estBinairepur() && this.left().estBinairepur();
 	}
 	
-	//La liste des feuilles
-	//public RecursiveList<E> feuillage(){}
-
+	
+	public RecursiveList<E> feuillage(){
+		
+		RecursiveList<E> result = new RecursiveList<>();
+		
+		if(this.estVide()) {
+			
+			return result;
+		}
+		if(this.estUneFeuille()) {
+			
+			result.ajouterEnFin(this.root());
+			return result;
+		}
+		return this.left().feuillage().concatenation(this.right().feuillage());
+	}
 }

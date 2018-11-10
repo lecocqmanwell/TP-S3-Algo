@@ -49,6 +49,10 @@ public class EssaiBinaryTree {
 		System.out.println("arbre A est binaire pur = " + arbreA.estBinairepur());
 		
 		System.out.println("arbre D est binaire pur = " + arbreD.estBinairepur());
+		
+		System.out.println("arbre E est binaire pur = " + arbreE.estBinairepur());
+		
+		System.out.println("liste des feuillages de l'arbre A = " + arbreA.feuillage());
 	}
 
 }
