@@ -1,6 +1,6 @@
 package binaryTree;
 
-import listeRecursive.RecursiveList;
+import Correction.dataStructures.RecursiveList;
 
 public class BinaryTree<E> {
 	

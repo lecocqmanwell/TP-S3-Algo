@@ -315,8 +315,11 @@ public class RecursiveList<E>
 	 * @return  une nouvelle liste, copie conforme de la liste (this).
 	 */
 	public RecursiveList<E> copie()
-	{
-		return new RecursiveList<>(this.tete(),this.corps());
+	{	
+		if (estVide()) {
+            return new RecursiveList<>();
+		}
+		return new RecursiveList<>(this.tete(),this.corps().copie());
 	}
 
 	/**
@@ -345,17 +348,12 @@ public class RecursiveList<E>
 	 */
 	public void concatener(RecursiveList<E> autre) // modification de la liste (this)
 	{
-		if(autre.estVide()) {
-			return;
+		if (this.estVide()) {
+            setList(autre);
 		}
-		if(this.estVide()) {
-			this.setTete(autre.tete());
-			this.corps().concatener(autre.corps());
-		}
-		else {
-			this.ajouterEnFin(autre.tete());
-			this.concatener(autre.corps());
-		}
+        else {
+            corps().concatener(autre);
+        }
 	}
 
 	/**
