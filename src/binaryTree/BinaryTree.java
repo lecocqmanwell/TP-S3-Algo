@@ -1,6 +1,6 @@
 package binaryTree;
 
-import listeRecursive.RecursiveList;
+import Correction.dataStructures.RecursiveList;
 
 public class BinaryTree<E> {
 	
@@ -141,25 +141,28 @@ public class BinaryTree<E> {
 	public boolean estBinairepur() {
 		
 		if(this.estVide()) {
+			return false;
+		}
+		if(this.estUneFeuille()) {
 			return true;
 		}
 		return this.right().estBinairepur() && this.left().estBinairepur();
 	}
 	
+
 	public RecursiveList<E> feuillage(){
+		
+		RecursiveList<E> result = new RecursiveList<>();
 		
 		if(this.estVide()) {
 			
-			return new RecursiveList<>();
+			return result;
 		}
 		if(this.estUneFeuille()) {
 			
-			
-			
 			result.ajouterEnFin(this.root());
-			return new RecursiveList<>();
+			return result;
 		}
 		return this.left().feuillage().concatenation(this.right().feuillage());
-}
-
+	}
 }

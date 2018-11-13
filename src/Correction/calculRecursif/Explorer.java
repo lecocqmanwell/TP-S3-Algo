@@ -1,11 +1,11 @@
 
-package calculRecursif;
+package Correction.calculRecursif;
 /**
  *
  * @author Erick Timmerman [Erick.Timmerman@univ-lille.fr]
  */
-import tp2.Fifo;
-import tp2.Pile;
+import Correction.dataStructures.Fifo;
+import Correction.dataStructures.Pile;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -154,17 +154,17 @@ public class Explorer
 
         File[] fils;
         Fifo<File> attente = new Fifo<>();
-        attente.enfiler(elt);
+        attente.ajouter(elt);
 
         while (!attente.estVide())
         {
-            elt = attente.defiler();
+            elt = attente.sortie();
             out.println(elt);
             if (elt.isDirectory())
             {
                 fils = elt.listFiles();
                 for (File fil : fils)
-                    attente.enfiler(fil);
+                    attente.ajouter(fil);
             }
         }
     }

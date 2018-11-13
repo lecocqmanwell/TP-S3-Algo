@@ -315,8 +315,11 @@ public class RecursiveList<E>
 	 * @return  une nouvelle liste, copie conforme de la liste (this).
 	 */
 	public RecursiveList<E> copie()
-	{
-		return new RecursiveList<>(this.tete(),this.corps());
+	{	
+		if (estVide()) {
+			return new RecursiveList<>();
+		}
+		return new RecursiveList<>(this.tete(),this.corps().copie());
 	}
 
 	/**
@@ -330,7 +333,7 @@ public class RecursiveList<E>
 			return true;
 		}
 		if(this.estVide() || autre.estVide()) {
-			
+
 			return false;
 		}
 		if(this.tete().equals(autre.tete())) {
@@ -345,16 +348,11 @@ public class RecursiveList<E>
 	 */
 	public void concatener(RecursiveList<E> autre) // modification de la liste (this)
 	{
-		if(autre.estVide()) {
-			return;
-		}
-		if(this.estVide()) {
-			this.setTete(autre.tete());
-			this.corps().concatener(autre.corps());
+		if (this.estVide()) {
+			setList(autre);
 		}
 		else {
-			this.ajouterEnFin(autre.tete());
-			this.concatener(autre.corps());
+			corps().concatener(autre);
 		}
 	}
 
@@ -369,14 +367,14 @@ public class RecursiveList<E>
 	public RecursiveList<E> concatenation(RecursiveList<E> autre) 
 	{
 		RecursiveList<E> resultat = this.copie();
-		
+
 		if(autre.estVide()) {
 			return resultat;
 		}
 		if(this.estVide()) {
 			return autre.copie();
 		}
-		
+
 		resultat.ajouterEnFin(autre.tete());
 		return resultat.concatenation(autre.corps());
 	}
@@ -406,15 +404,15 @@ public class RecursiveList<E>
 	public RecursiveList<E> miroirIteratif()
 	{
 		RecursiveList<E> nouvelle = new RecursiveList<>();
-		
+
 		RecursiveList<E> local = this;
-		
+
 		while(!local.estVide()) {
-		
+
 			nouvelle.ajouterEnTete(local.tete());
-			
+
 			local = local.corps();
-		
+
 		}
 		return nouvelle;
 	}
@@ -432,8 +430,17 @@ public class RecursiveList<E>
 	 */
 	public boolean estSousListe(RecursiveList<E> autre)
 	{
-		
-		return false;
+
+		if(this.estVide()) {
+			return true;
+		}
+		if(autre.estVide()) {
+			return false;
+		}
+		if(this.tete().equals(autre.tete())) {
+			return this.corps().estSousListe(autre.corps());
+		}
+		return this.estSousListe(autre.corps());
 	}
 
 	/**
@@ -444,8 +451,15 @@ public class RecursiveList<E>
 	 */    
 	public Object[] toArray()
 	{
-		// to do!
-		throw new UnsupportedOperationException("Not supported yet.");
+		ArrayList<E> list = new ArrayList<>();
+		RecursiveList<E> Rlist = this.copie();
+		
+		while(!Rlist.estVide()) {
+			
+			list.add(Rlist.tete());
+			Rlist = Rlist.corps();	
+		}
+		return list.toArray();
 	}
 
 	/**
