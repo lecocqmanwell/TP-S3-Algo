@@ -146,7 +146,20 @@ public class BinaryTree<E> {
 		return this.right().estBinairepur() && this.left().estBinairepur();
 	}
 	
-	//La liste des feuilles
-	//public RecursiveList<E> feuillage(){}
+	public RecursiveList<E> feuillage(){
+		
+		if(this.estVide()) {
+			
+			return new RecursiveList<>();
+		}
+		if(this.estUneFeuille()) {
+			
+			
+			
+			result.ajouterEnFin(this.root());
+			return new RecursiveList<>();
+		}
+		return this.left().feuillage().concatenation(this.right().feuillage());
+}
 
 }
