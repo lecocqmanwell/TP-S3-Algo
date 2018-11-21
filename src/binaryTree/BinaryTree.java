@@ -1,5 +1,7 @@
 package binaryTree;
 
+import Correction.dataStructures.Fifo;
+import Correction.dataStructures.Pile;
 import Correction.dataStructures.RecursiveList;
 
 public class BinaryTree<E> {
@@ -206,8 +208,29 @@ public class BinaryTree<E> {
      */
     public String prefixeIteratif()
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+        Pile <BinaryTree<E>> pile = new Pile <>();
+        
+        BinaryTree<E> local = this;
+        
+        String resultat = "";
+        
+        while(! local.estVide() || ! pile.estVide()) {
+        	
+        	if(local.estVide()) {
+        		
+        		local = pile.depiler();
+        	}
+        	else {
+        		resultat = resultat + local.root();
+        		if(!local.right().estVide()) {
+        			
+        			pile.empiler(local.right());
+        		}
+        		local = local.left();
+        	}
+        }
+        
+        return resultat;
     }
 
     /**
@@ -215,8 +238,31 @@ public class BinaryTree<E> {
      */
     public String infixeIteratif()
     {
-       // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+    	 Pile <BinaryTree<E>> pile = new Pile <>();
+         
+         BinaryTree<E> local = this;
+         
+         String resultat = "";
+         
+         while(! local.estVide() || ! pile.estVide()) {
+        	 
+        	 if(local.estVide()) {
+        		 
+        		 local = pile.depiler();
+        		 resultat += local.root();
+        		 local = local.right();
+        	 }
+        	 else {
+        		 
+        		 pile.empiler(local);
+        		 
+        		 local = local.left();
+        		 
+        	 }
+        	 
+         }
+         
+         return resultat;
     }
 
     /**
@@ -224,8 +270,13 @@ public class BinaryTree<E> {
      */
     public String parNiveau()
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+       Fifo <BinaryTree<E>> file = new Fifo<>();
+       
+       String resultat = "";
+       
+       
+       
+       return resultat;
     }
     
     /**
@@ -233,8 +284,39 @@ public class BinaryTree<E> {
      */
     public String suffixeIteratif()
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+    	Pile <BinaryTree<E>> pile = new Pile <>();
+    	
+    	Pile <Boolean> pileB = new Pile<>();
+    	
+    	BinaryTree<E> arbreVide = new BinaryTree<>();
+        
+        BinaryTree<E> local = this;
+        
+        String resultat = "";
+        
+        while(! local.estVide() || ! pile.estVide()) {
+        	
+        	if(!local.estVide()) {
+        		
+        		pile.empiler(local);
+        		pileB.empiler(false);
+        		local= local.left();
+        	}
+        	else {
+        		local = pile.depiler();
+        		
+        		if(pileB.depiler()) {
+        			
+        			resultat += local.root();
+        			local= arbreVide;
+        		}else {
+        			pile.empiler(local);
+        			pileB.empiler(true);
+        			local = local.right();
+        		}
+        	}
+        }
+        return resultat;
     }
     
     /**

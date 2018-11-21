@@ -54,6 +54,12 @@ public class EssaiBinaryTree {
 		System.out.println("arbre E est binaire pur = " + arbreE.estBinairepur());
 		
 		System.out.println("liste des feuilles de l'arbre A = " + arbreA.feuillage());
+		
+		System.out.println("préfixe iteratif de l'arbre A = " + arbreA.prefixeIteratif());
+		
+		System.out.println("infixe iteratif de l'arbre A = " + arbreA.infixeIteratif());
+		
+		System.out.println("suffixe iteratif de l'arbre A = " + arbreA.suffixeIteratif());
 
 	}
 
