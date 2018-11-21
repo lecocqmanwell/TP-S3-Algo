@@ -60,6 +60,8 @@ public class EssaiBinaryTree {
 		System.out.println("infixe iteratif de l'arbre A = " + arbreA.infixeIteratif());
 		
 		System.out.println("suffixe iteratif de l'arbre A = " + arbreA.suffixeIteratif());
+		
+		System.out.println("affichage par niveau de l'arbre A = " + arbreA.parNiveau());
 
 	}
 

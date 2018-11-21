@@ -272,10 +272,26 @@ public class BinaryTree<E> {
     {
        Fifo <BinaryTree<E>> file = new Fifo<>();
        
+       BinaryTree<E> local = this;
+       
+       file.ajouter(local);
+       
        String resultat = "";
        
-       
-       
+       while(!file.estVide()) {
+    	   
+    	   local = file.sortie();
+    	   
+    	   resultat += local.root();
+    	   
+    	   if (!local.left().estVide()) {
+    		   file.ajouter(local.left());
+    	   }
+    	   if(!local.right().estVide()) {
+    		  
+    		   file.ajouter(local.right());
+    	   }
+       }
        return resultat;
     }
     
