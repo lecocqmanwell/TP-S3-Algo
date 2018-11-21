@@ -53,7 +53,7 @@ public class EssaiBinaryTree {
 
 		System.out.println("arbre E est binaire pur = " + arbreE.estBinairepur());
 		
-		System.out.println("liste des feuillages de l'arbre A = " + arbreA.feuillage());
+		System.out.println("liste des feuilles de l'arbre A = " + arbreA.feuillage());
 
 	}
 

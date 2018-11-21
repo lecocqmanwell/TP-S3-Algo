@@ -41,6 +41,25 @@ public class BinaryTree<E> {
 		this.Noeud = new Node(value,left,right);
 	}
 	
+	 public BinaryTree(E[] elts){
+	        this();
+	        setTree(perfectlyBalancedTreeFrom(elts, 0, elts.length - 1));
+	 }
+	 
+	 private BinaryTree<E> perfectlyBalancedTreeFrom(E[] elts, int indexDebut, int indexFin){
+	     
+		 if (indexDebut > indexFin)    // portion de vecteur vide
+			 return new BinaryTree<>();
+
+	     int nb = (indexFin + indexDebut + 1) / 2;
+
+	        // Construction des sous-arbres.
+	     BinaryTree<E> g = perfectlyBalancedTreeFrom(elts, indexDebut + 1, nb);
+	     BinaryTree<E> d = perfectlyBalancedTreeFrom(elts, nb + 1, indexFin);
+
+	     return new BinaryTree<>(elts[indexDebut], g, d);
+	     }   
+	
 	public boolean estVide() {
 		
 		return this.Noeud == null;
@@ -72,6 +91,8 @@ public class BinaryTree<E> {
 	}
 	
 	public void setTree(BinaryTree<E> other) {
+		
+		//this.Noeud = other.Noeud
 		
 		this.Noeud.value = other.Noeud.value;
 		this.Noeud.left = other.Noeud.left;
@@ -140,6 +161,16 @@ public class BinaryTree<E> {
 	
 	public boolean estBinairepur() {
 		
+		//CORRECTION
+		
+		/*if (this.estVide() || this.estUneFeuille())
+            return true;
+        if (this.gauche().estVide() || this.droit().estVide())
+            return false;
+
+        return this.gauche().estBinairePur() && this.droit().estBinairePur();*/
+		
+		
 		if(this.estVide()) {
 			return false;
 		}
@@ -149,7 +180,11 @@ public class BinaryTree<E> {
 		return this.right().estBinairepur() && this.left().estBinairepur();
 	}
 	
-
+	/**
+     * Fournit la liste des valeurs situées en feuille de l'arbre (ordre gauche --> droit).
+     * Version récursive sans tenir compte du coût, de la complexité, algorithmique.
+     * @return une liste des valeurs en feuille de l'arbre
+     */
 	public RecursiveList<E> feuillage(){
 		
 		RecursiveList<E> result = new RecursiveList<>();
@@ -165,4 +200,67 @@ public class BinaryTree<E> {
 		}
 		return this.left().feuillage().concatenation(this.right().feuillage());
 	}
+	
+	/**
+     * @return la suite "préfixe" des valeurs de l'arbre, version itérative.
+     */
+    public String prefixeIteratif()
+    {
+        // to do!
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * @return la suite "infixe" des valeurs de l'arbre, version itérative.
+     */
+    public String infixeIteratif()
+    {
+       // to do!
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * @return la suite obtenue avec un parcours en "largeur d'abord" des valeurs de l'arbre.
+     */
+    public String parNiveau()
+    {
+        // to do!
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * @return la suite "suffixe" des valeurs de l'arbre, version itérative.
+     */
+    public String suffixeIteratif()
+    {
+        // to do!
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Fournit la liste des valeurs situées en feuille de l'arbre (ordre gauche --> droit).
+     * Version récursive moins coûteuse évitant la construction intempestive de listes.
+     * @return une liste des valeurs en feuille de l'arbre
+     */
+    public RecursiveList<E> feuillageEco()
+    {
+        if (this.estVide())
+            return new RecursiveList<>();
+        if (this.estUneFeuille())
+            return new RecursiveList<>(root());
+        RecursiveList<E> res = this.left().feuillageEco();
+        res.concatener(this.right().feuillageEco());
+        return res;
+    }
+    
+    /**
+     * Fournit la liste des valeurs situées en feuille de l'arbre (ordre gauche --> droit).
+     * Version itérative efficace, parcours en profondeur type préfixe (RDG).
+     * @return une liste des valeurs en feuille de l'arbre
+     */
+    public RecursiveList<E> feuillageIteratif()
+    {
+        // to do!
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
