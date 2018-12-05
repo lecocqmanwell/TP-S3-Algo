@@ -113,18 +113,51 @@ public class SearchTree<E extends Comparable<E>>
      */
     public boolean contient(E val)
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+    	
+    	
+    	if (this.estVide()) {
+    		return false;
+    	}
+    	
+    	int result = this.racine().compareTo(val);
+    	
+    	if(result == 0) {
+    		return true;
+    	}
+    	if(result > 0) {
+    		return this.gauche().contient(val);
+    	}
+    	if(result < 0) {
+    		return this.droit().contient(val);
+    	}
+
+    	return false;
     }
 
     /** 
      * Insère la valeur fournie dans l'arbre.
      * @param val la valeur à insérer dans l'arbre.
      */
-    public void inserer(E val)
-    {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void inserer(E val){
+    	
+    	
+    	
+        if(this.estVide()) {
+        	this.setTree(new SearchTree<E>(val));
+        }
+        else {
+        	int result = this.racine().compareTo(val);
+        	
+        	if(result == 0) {
+        		return;
+        	}
+        	if(result > 0) {
+        		this.gauche().inserer(val);
+        	}
+        	if(result < 0) {
+        		this.droit().inserer(val);
+        	}
+        }
     }
 
     /**  
@@ -133,8 +166,57 @@ public class SearchTree<E extends Comparable<E>>
      */
     public void supprimer(E val)
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+       if(this.estVide()) {
+    	   return;
+       }
+       else {
+    	   
+    	   int result = this.racine().compareTo(val);
+    	   
+    	   if(result > 0) {
+    		   this.gauche().supprimer(val);
+    	   }
+    	   else {
+    		   if(result < 0) {
+    		   
+    		   		this.droit().supprimer(val);
+    	   		}
+    		   else {
+    			   if(result == 0) {
+    				   
+    				   if(this.gauche().estVide()) {
+    					  
+    					   this.setTree(this.droit());
+    				   }
+    				   else{
+    					   if(this.droit().estVide()) {
+    				   
+    						   this.setTree(this.gauche());
+    					   }
+    					   else {
+    						   SearchTree<E> resultat = minVal(this.droit());
+    						   this.supprimer(resultat.racine());
+    						   this.setTree(resultat);
+    					   }
+    				   }
+    	   
+    			   }
+    		   }
+    	   }
+       }
+    }
+    
+    private SearchTree<E> minVal(SearchTree<E> tree) {
+    	
+    	SearchTree<E> resultat = tree;
+    	
+    	if(tree.gauche().estVide()) {
+    		return tree;
+    	}
+    	else {
+    		return tree.minVal(tree.gauche());
+    	}
+    	
     }
 
     /** 
@@ -143,9 +225,9 @@ public class SearchTree<E extends Comparable<E>>
      */
     public boolean isValid()
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+    	return true;
     }
+    
     
     /**
      * Construit un arbre de recherche équilibré comportant toutes les valeurs
@@ -155,9 +237,26 @@ public class SearchTree<E extends Comparable<E>>
      */
     public SearchTree(E[] elements)
     {
-        // to do!
-        throw new UnsupportedOperationException("Not supported yet.");
+        this();
+        
+        this.setTree(searchTreeParIndice(elements,0,elements.length - 1));
+        
     }
+    
+    private SearchTree<E> searchTreeParIndice(E[] elts, int indexDebut, int indexFin){
+
+   
+        if (indexDebut > indexFin) {    
+            return new SearchTree<>();
+        }
+        int nb = (indexFin + indexDebut + 1) / 2;
+
+        SearchTree<E> g = searchTreeParIndice(elts, indexDebut, nb - 1);
+        
+        SearchTree<E> d = searchTreeParIndice(elts, nb + 1, indexFin);
+
+        return new SearchTree<>(elts[nb], g, d);
+    }    
 
     /* constructeur utilitaire interne privé.
        les arbres fournis sont des arbres de recherche,
